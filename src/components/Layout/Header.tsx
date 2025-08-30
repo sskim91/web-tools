@@ -16,7 +16,7 @@ const Header = () => {
             <Calculator size={28} />
             <span>WebTools</span>
           </Link>
-          
+
           <button className="mobile-menu-btn" onClick={toggleMenu}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

@@ -11,7 +11,7 @@ interface Purchase {
 
 const StockAverage = () => {
   const [purchases, setPurchases] = useState<Purchase[]>([
-    { id: '1', price: 10000, quantity: 10, totalAmount: 100000 }
+    { id: '1', price: 10000, quantity: 10, totalAmount: 100000 },
   ]);
   const [newPrice, setNewPrice] = useState<string>('');
   const [newQuantity, setNewQuantity] = useState<string>('');
@@ -21,15 +21,15 @@ const StockAverage = () => {
   const addPurchase = () => {
     const price = parseFloat(newPrice);
     const quantity = parseFloat(newQuantity);
-    
+
     if (price > 0 && quantity > 0) {
       const newPurchase: Purchase = {
         id: Date.now().toString(),
         price,
         quantity,
-        totalAmount: price * quantity
+        totalAmount: price * quantity,
       };
-      
+
       setPurchases([...purchases, newPurchase]);
       setNewPrice('');
       setNewQuantity('');
@@ -37,16 +37,16 @@ const StockAverage = () => {
   };
 
   const removePurchase = (id: string) => {
-    setPurchases(purchases.filter(p => p.id !== id));
+    setPurchases(purchases.filter((p) => p.id !== id));
   };
 
   const calculateAverage = () => {
     if (purchases.length === 0) return { avgPrice: 0, totalQuantity: 0, totalAmount: 0 };
-    
+
     const totalQuantity = purchases.reduce((sum, p) => sum + p.quantity, 0);
     const totalAmount = purchases.reduce((sum, p) => sum + p.totalAmount, 0);
     const avgPrice = totalAmount / totalQuantity;
-    
+
     return { avgPrice, totalQuantity, totalAmount };
   };
 
@@ -54,20 +54,20 @@ const StockAverage = () => {
     const current = calculateAverage();
     const targetPriceNum = parseFloat(targetPrice) || 0;
     const targetQtyNum = parseFloat(targetQuantity) || 0;
-    
+
     if (targetPriceNum > 0 && targetQtyNum > 0) {
-      const newTotalAmount = current.totalAmount + (targetPriceNum * targetQtyNum);
+      const newTotalAmount = current.totalAmount + targetPriceNum * targetQtyNum;
       const newTotalQuantity = current.totalQuantity + targetQtyNum;
       const newAvgPrice = newTotalAmount / newTotalQuantity;
-      
+
       return {
         newAvgPrice,
         newTotalQuantity,
         newTotalAmount,
-        additionalInvestment: targetPriceNum * targetQtyNum
+        additionalInvestment: targetPriceNum * targetQtyNum,
       };
     }
-    
+
     return null;
   };
 
@@ -79,18 +79,19 @@ const StockAverage = () => {
     return new Intl.NumberFormat('ko-KR', {
       style: 'currency',
       currency: 'KRW',
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(num);
   };
 
   const currentStats = calculateAverage();
   const targetStats = calculateTargetAverage();
-  
+
   // 수익률 계산
   const lastPrice = purchases.length > 0 ? purchases[purchases.length - 1].price : 0;
-  const profitRate = currentStats.avgPrice > 0 
-    ? ((lastPrice - currentStats.avgPrice) / currentStats.avgPrice * 100) 
-    : 0;
+  const profitRate =
+    currentStats.avgPrice > 0
+      ? ((lastPrice - currentStats.avgPrice) / currentStats.avgPrice) * 100
+      : 0;
 
   return (
     <div className="stock-average">
@@ -103,7 +104,7 @@ const StockAverage = () => {
       <div className="calculator-container">
         <div className="purchases-section glass">
           <h2>보유 내역</h2>
-          
+
           <div className="purchase-list">
             <div className="purchase-header">
               <span>매수가</span>
@@ -111,13 +112,13 @@ const StockAverage = () => {
               <span>금액</span>
               <span></span>
             </div>
-            
+
             {purchases.map((purchase, index) => (
               <div key={purchase.id} className="purchase-item">
                 <span>{formatCurrency(purchase.price)}</span>
                 <span>{formatNumber(purchase.quantity)}주</span>
                 <span>{formatCurrency(purchase.totalAmount)}</span>
-                <button 
+                <button
                   className="remove-btn"
                   onClick={() => removePurchase(purchase.id)}
                   disabled={purchases.length === 1}
@@ -153,29 +154,23 @@ const StockAverage = () => {
         <div className="results-section">
           <div className="current-stats glass">
             <h2>현재 상태</h2>
-            
+
             <div className="stats-grid">
               <div className="stat-item">
                 <span className="stat-label">평균 매수가</span>
-                <span className="stat-value primary">
-                  {formatCurrency(currentStats.avgPrice)}
-                </span>
+                <span className="stat-value primary">{formatCurrency(currentStats.avgPrice)}</span>
               </div>
-              
+
               <div className="stat-item">
                 <span className="stat-label">총 수량</span>
-                <span className="stat-value">
-                  {formatNumber(currentStats.totalQuantity)}주
-                </span>
+                <span className="stat-value">{formatNumber(currentStats.totalQuantity)}주</span>
               </div>
-              
+
               <div className="stat-item">
                 <span className="stat-label">총 투자금</span>
-                <span className="stat-value">
-                  {formatCurrency(currentStats.totalAmount)}
-                </span>
+                <span className="stat-value">{formatCurrency(currentStats.totalAmount)}</span>
               </div>
-              
+
               <div className="stat-item">
                 <span className="stat-label">수익률</span>
                 <span className={`stat-value ${profitRate >= 0 ? 'success' : 'danger'}`}>
@@ -188,7 +183,7 @@ const StockAverage = () => {
 
           <div className="target-calculator glass">
             <h2>추가 매수 시뮬레이션</h2>
-            
+
             <div className="target-inputs">
               <div className="input-group">
                 <label>추가 매수가 (원)</label>
@@ -200,7 +195,7 @@ const StockAverage = () => {
                   placeholder="8000"
                 />
               </div>
-              
+
               <div className="input-group">
                 <label>추가 수량 (주)</label>
                 <input
@@ -223,21 +218,21 @@ const StockAverage = () => {
                       {formatCurrency(targetStats.newAvgPrice)}
                     </span>
                   </div>
-                  
+
                   <div className="result-item">
                     <span className="result-label">총 수량</span>
                     <span className="result-value">
                       {formatNumber(targetStats.newTotalQuantity)}주
                     </span>
                   </div>
-                  
+
                   <div className="result-item">
                     <span className="result-label">추가 투자금</span>
                     <span className="result-value warning">
                       {formatCurrency(targetStats.additionalInvestment)}
                     </span>
                   </div>
-                  
+
                   <div className="result-item">
                     <span className="result-label">총 투자금</span>
                     <span className="result-value">
@@ -254,7 +249,11 @@ const StockAverage = () => {
                     <span className="after">{formatCurrency(targetStats.newAvgPrice)}</span>
                   </div>
                   <span className="change-percent">
-                    {((targetStats.newAvgPrice - currentStats.avgPrice) / currentStats.avgPrice * 100).toFixed(2)}%
+                    {(
+                      ((targetStats.newAvgPrice - currentStats.avgPrice) / currentStats.avgPrice) *
+                      100
+                    ).toFixed(2)}
+                    %
                   </span>
                 </div>
               </div>

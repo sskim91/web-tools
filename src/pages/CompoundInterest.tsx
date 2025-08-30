@@ -8,7 +8,7 @@ const CompoundInterest = () => {
   const [years, setYears] = useState<string>('10');
   const [compound, setCompound] = useState<string>('12');
   const [monthlyDeposit, setMonthlyDeposit] = useState<string>('100000');
-  
+
   const [result, setResult] = useState({
     finalAmount: 0,
     totalInvested: 0,
@@ -18,7 +18,7 @@ const CompoundInterest = () => {
       amount: number;
       invested: number;
       interest: number;
-    }>
+    }>,
   });
 
   useEffect(() => {
@@ -31,40 +31,40 @@ const CompoundInterest = () => {
     const t = parseFloat(years) || 0;
     const n = parseFloat(compound) || 1;
     const PMT = parseFloat(monthlyDeposit) || 0;
-    
+
     const yearlyBreakdown = [];
     let currentAmount = P;
     let totalInvested = P;
-    
+
     for (let year = 1; year <= t; year++) {
       // 복리 계산 (연 복리)
-      currentAmount = currentAmount * Math.pow(1 + r/n, n);
-      
+      currentAmount = currentAmount * Math.pow(1 + r / n, n);
+
       // 월 적립금 추가
       if (PMT > 0) {
         const monthlyRate = r / 12;
         for (let month = 1; month <= 12; month++) {
           currentAmount += PMT;
-          currentAmount *= (1 + monthlyRate);
+          currentAmount *= 1 + monthlyRate;
           totalInvested += PMT;
         }
       }
-      
+
       const interest = currentAmount - totalInvested;
-      
+
       yearlyBreakdown.push({
         year,
         amount: Math.round(currentAmount),
         invested: Math.round(totalInvested),
-        interest: Math.round(interest)
+        interest: Math.round(interest),
       });
     }
-    
+
     setResult({
       finalAmount: Math.round(currentAmount),
       totalInvested: Math.round(totalInvested),
       totalInterest: Math.round(currentAmount - totalInvested),
-      yearlyBreakdown
+      yearlyBreakdown,
     });
   };
 
@@ -76,7 +76,7 @@ const CompoundInterest = () => {
     return new Intl.NumberFormat('ko-KR', {
       style: 'currency',
       currency: 'KRW',
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(num);
   };
 
@@ -91,7 +91,7 @@ const CompoundInterest = () => {
       <div className="calculator-container">
         <div className="input-section glass">
           <h2>입력값</h2>
-          
+
           <div className="input-group">
             <label>
               <DollarSign size={18} />
@@ -108,8 +108,7 @@ const CompoundInterest = () => {
 
           <div className="input-group">
             <label>
-              <Percent size={18} />
-              연 수익률 (%)
+              <Percent size={18} />연 수익률 (%)
             </label>
             <input
               type="number"
@@ -137,8 +136,7 @@ const CompoundInterest = () => {
 
           <div className="input-group">
             <label>
-              <DollarSign size={18} />
-              월 적립금 (원)
+              <DollarSign size={18} />월 적립금 (원)
             </label>
             <input
               type="number"
@@ -153,35 +151,30 @@ const CompoundInterest = () => {
         <div className="result-section">
           <div className="result-summary glass">
             <h2>계산 결과</h2>
-            
+
             <div className="result-cards">
               <div className="result-card">
                 <span className="result-label">최종 금액</span>
-                <span className="result-value primary">
-                  {formatCurrency(result.finalAmount)}
-                </span>
+                <span className="result-value primary">{formatCurrency(result.finalAmount)}</span>
               </div>
-              
+
               <div className="result-card">
                 <span className="result-label">총 투자금</span>
-                <span className="result-value">
-                  {formatCurrency(result.totalInvested)}
-                </span>
+                <span className="result-value">{formatCurrency(result.totalInvested)}</span>
               </div>
-              
+
               <div className="result-card">
                 <span className="result-label">총 수익</span>
-                <span className="result-value success">
-                  {formatCurrency(result.totalInterest)}
-                </span>
+                <span className="result-value success">{formatCurrency(result.totalInterest)}</span>
               </div>
-              
+
               <div className="result-card">
                 <span className="result-label">수익률</span>
                 <span className="result-value">
-                  {result.totalInvested > 0 
+                  {result.totalInvested > 0
                     ? ((result.totalInterest / result.totalInvested) * 100).toFixed(2)
-                    : '0.00'}%
+                    : '0.00'}
+                  %
                 </span>
               </div>
             </div>

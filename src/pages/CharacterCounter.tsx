@@ -15,7 +15,7 @@ const CharacterCounter = () => {
     englishChars: 0,
     numbers: 0,
     spaces: 0,
-    specialChars: 0
+    specialChars: 0,
   });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const CharacterCounter = () => {
         englishChars: 0,
         numbers: 0,
         spaces: 0,
-        specialChars: 0
+        specialChars: 0,
       });
       return;
     }
@@ -45,7 +45,7 @@ const CharacterCounter = () => {
     const charactersNoSpaces = inputText.replace(/\s/g, '').length;
     const words = inputText.trim() ? inputText.trim().split(/\s+/).length : 0;
     const lines = inputText.split('\n').length;
-    const paragraphs = inputText.split(/\n\s*\n/).filter(p => p.trim()).length;
+    const paragraphs = inputText.split(/\n\s*\n/).filter((p) => p.trim()).length;
     const bytes = new Blob([inputText]).size;
 
     // 문자 유형별 통계
@@ -66,7 +66,7 @@ const CharacterCounter = () => {
       englishChars,
       numbers,
       spaces,
-      specialChars
+      specialChars,
     });
   };
 
@@ -211,7 +211,7 @@ const CharacterCounter = () => {
                       <span>{((stats.koreanChars / stats.characters) * 100).toFixed(1)}%</span>
                     </div>
                     <div className="distribution-bar">
-                      <div 
+                      <div
                         className="distribution-fill korean"
                         style={{ width: `${(stats.koreanChars / stats.characters) * 100}%` }}
                       />
@@ -225,7 +225,7 @@ const CharacterCounter = () => {
                       <span>{((stats.englishChars / stats.characters) * 100).toFixed(1)}%</span>
                     </div>
                     <div className="distribution-bar">
-                      <div 
+                      <div
                         className="distribution-fill english"
                         style={{ width: `${(stats.englishChars / stats.characters) * 100}%` }}
                       />
@@ -239,7 +239,7 @@ const CharacterCounter = () => {
                       <span>{((stats.numbers / stats.characters) * 100).toFixed(1)}%</span>
                     </div>
                     <div className="distribution-bar">
-                      <div 
+                      <div
                         className="distribution-fill numbers"
                         style={{ width: `${(stats.numbers / stats.characters) * 100}%` }}
                       />
@@ -253,7 +253,7 @@ const CharacterCounter = () => {
                       <span>{((stats.spaces / stats.characters) * 100).toFixed(1)}%</span>
                     </div>
                     <div className="distribution-bar">
-                      <div 
+                      <div
                         className="distribution-fill spaces"
                         style={{ width: `${(stats.spaces / stats.characters) * 100}%` }}
                       />
