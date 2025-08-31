@@ -4,7 +4,7 @@ import {
   calculateDiscount,
   calculateMultipleDiscounts,
   calculateActualDiscountRate,
-} from '../../utils/calculations';
+} from '../../src/utils/calculations';
 
 describe('복리 계산 함수', () => {
   describe('calculateCompoundInterest', () => {

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { TrendingUp, Type, LineChart, Plus, Tag } from 'lucide-react';
-import '../styles/pages/Home.css';
+import '@/src/styles/pages/Home.css';
 
 const tools = [
   {
@@ -37,21 +37,21 @@ const tools = [
   },
 ];
 
-const Home = () => {
+export default function HomePage() {
   return (
     <div className="home">
       <div className="hero">
         <h1 className="hero-title">
           <span className="gradient-text">Web Tools</span>
         </h1>
-        <p className="hero-subtitle">일상에서 필요한 다양한 계산 도구를 제공합니다</p>
+        <p className="hero-subtitle">빠르고 정확한 온라인 도구 모음</p>
       </div>
 
       <div className="tools-grid">
         {tools.map((tool) => {
           const Icon = tool.icon;
           return (
-            <Link to={tool.path} key={tool.id} className="tool-card">
+            <Link href={tool.path} key={tool.id} className="tool-card">
               <div className="tool-icon" style={{ background: tool.color }}>
                 <Icon size={28} />
               </div>
@@ -71,6 +71,4 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}

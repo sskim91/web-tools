@@ -1,13 +1,15 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { Tag, Plus, X, Calculator } from 'lucide-react';
 import {
   calculateDiscount,
   calculateMultipleDiscounts,
   calculateActualDiscountRate,
-} from '../utils/calculations';
-import '../styles/pages/DiscountCalculator.css';
+} from '@/src/utils/calculations';
+import '@/src/styles/pages/DiscountCalculator.css';
 
-const DiscountCalculator = () => {
+export default function DiscountCalculatorPage() {
   // 단일 할인 계산
   const [originalPrice, setOriginalPrice] = useState<string>('10000');
   const [discountRate, setDiscountRate] = useState<string>('20');
@@ -230,6 +232,4 @@ const DiscountCalculator = () => {
       </div>
     </div>
   );
-};
-
-export default DiscountCalculator;
+}
