@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <footer className="footer">
             <div className="container">
-              <p>© 2024 WebTools. All Rights Reserved.</p>
+              <p>© 2025 WebTools. All Rights Reserved.</p>
             </div>
           </footer>
         </div>
