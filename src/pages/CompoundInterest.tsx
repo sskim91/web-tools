@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { TrendingUp, DollarSign, Percent, Calendar } from 'lucide-react';
 import { calculateCompoundInterest as calculateCompound } from '../utils/calculations';
 import useDebounce from '../hooks/useDebounce';
-import './CompoundInterest.css';
+import '../styles/pages/CompoundInterest.css';
 
 const CompoundInterest = () => {
   const [principal, setPrincipal] = useState<number | ''>(1000000);

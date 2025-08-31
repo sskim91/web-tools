@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Type, FileText, Hash, Space, Copy, Trash2 } from 'lucide-react';
-import './CharacterCounter.css';
+import '../styles/pages/CharacterCounter.css';
 
 const CharacterCounter = () => {
   const [text, setText] = useState<string>('');

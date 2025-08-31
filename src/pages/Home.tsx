@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { TrendingUp, Type, LineChart, Plus } from 'lucide-react';
-import './Home.css';
+import { TrendingUp, Type, LineChart, Plus, Tag } from 'lucide-react';
+import '../styles/pages/Home.css';
 
 const tools = [
   {
@@ -26,6 +26,14 @@ const tools = [
     icon: LineChart,
     color: '#f59e0b',
     path: '/stock-average',
+  },
+  {
+    id: 'discount-calculator',
+    title: '할인율 계산기',
+    description: '단일 및 다중 할인 가격을 계산합니다',
+    icon: Tag,
+    color: '#f43f5e',
+    path: '/discount-calculator',
   },
 ];
 

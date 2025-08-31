@@ -5,7 +5,7 @@ import {
   calculateMultipleDiscounts,
   calculateActualDiscountRate,
 } from '../utils/calculations';
-import './DiscountCalculator.css';
+import '../styles/pages/DiscountCalculator.css';
 
 const DiscountCalculator = () => {
   // 단일 할인 계산

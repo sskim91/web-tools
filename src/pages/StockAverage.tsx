@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { LineChart, Plus, Trash2, TrendingDown, TrendingUp } from 'lucide-react';
-import './StockAverage.css';
+import '../styles/pages/StockAverage.css';
 
 interface Purchase {
   id: string;

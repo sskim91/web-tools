@@ -4,7 +4,8 @@ import Home from './pages/Home';
 import CompoundInterest from './pages/CompoundInterest';
 import CharacterCounter from './pages/CharacterCounter';
 import StockAverage from './pages/StockAverage';
-import './App.css';
+import DiscountCalculator from './pages/DiscountCalculator';
+import './styles/globals.css';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="compound-interest" element={<CompoundInterest />} />
           <Route path="character-counter" element={<CharacterCounter />} />
           <Route path="stock-average" element={<StockAverage />} />
+          <Route path="discount-calculator" element={<DiscountCalculator />} />
         </Route>
       </Routes>
     </Router>
