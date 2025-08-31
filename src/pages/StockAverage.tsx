@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LineChart, Plus, Trash2, Calculator, TrendingDown, TrendingUp } from 'lucide-react';
+import { LineChart, Plus, Trash2, TrendingDown, TrendingUp } from 'lucide-react';
 import './StockAverage.css';
 
 interface Purchase {
@@ -113,7 +113,7 @@ const StockAverage = () => {
               <span></span>
             </div>
 
-            {purchases.map((purchase, index) => (
+            {purchases.map((purchase) => (
               <div key={purchase.id} className="purchase-item">
                 <span>{formatCurrency(purchase.price)}</span>
                 <span>{formatNumber(purchase.quantity)}주</span>
