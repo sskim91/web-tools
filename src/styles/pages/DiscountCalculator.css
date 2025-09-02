@@ -44,7 +44,7 @@
 .input-display {
   display: block;
   padding: 0.75rem;
-  background: var(--bg-secondary);
+  background: var(--surface);
   border-radius: 8px;
   font-size: 1.125rem;
   font-weight: 600;
@@ -53,7 +53,7 @@
 .result-box {
   margin-top: 2rem;
   padding: 1.5rem;
-  background: var(--bg-secondary);
+  background: var(--surface);
   border-radius: 12px;
 }
 
@@ -76,6 +76,14 @@
 .result-item .value {
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+.result-item .value.primary {
+  color: var(--primary);
+}
+
+.result-item .value.success {
+  color: var(--success);
 }
 
 .result-item.large .value {

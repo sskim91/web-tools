@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, DollarSign, Percent, Calendar } from 'lucide-react';
 import { calculateCompoundInterest as calculateCompound } from '@/src/utils/calculations';
 import useDebounce from '@/src/hooks/useDebounce';
 import '@/src/styles/pages/CompoundInterest.css';
@@ -14,10 +14,10 @@ type YearlyBreakdown = {
 };
 
 export default function CompoundInterestPage() {
-  const [principal, setPrincipal] = useState<number | ''>(1000000);
-  const [rate, setRate] = useState<number | ''>(5);
-  const [years, setYears] = useState<number | ''>(10);
-  const [monthlyDeposit, setMonthlyDeposit] = useState<number | ''>(100000);
+  const [principal, setPrincipal] = useState<number>(1000000);
+  const [rate, setRate] = useState<number>(5);
+  const [years, setYears] = useState<number>(10);
+  const [monthlyDeposit, setMonthlyDeposit] = useState<number>(100000);
 
   const debouncedPrincipal = useDebounce(principal, 300);
   const debouncedRate = useDebounce(rate, 300);
@@ -56,11 +56,11 @@ export default function CompoundInterestPage() {
   }, []);
 
   const handleNumberChange = useCallback(
-    (setter: React.Dispatch<React.SetStateAction<number | ''>>) =>
+    (setter: React.Dispatch<React.SetStateAction<number>>) =>
       (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (value === '') {
-          setter('');
+          setter(0);
         } else {
           const num = parseFloat(value);
           if (!isNaN(num) && num >= 0) {
@@ -74,17 +74,20 @@ export default function CompoundInterestPage() {
   return (
     <div className="compound-interest">
       <div className="page-header">
-        <TrendingUp size={32} className="page-icon" />
+        <TrendingUp size={32} className="page-icon" aria-hidden="true" />
         <h1>복리 계산기</h1>
-        <p>투자 수익률과 미래 가치를 계산하세요</p>
+        <p>복리의 마법을 경험해보세요</p>
       </div>
 
       <div className="calculator-container">
         <div className="input-section glass">
-          <h2>투자 정보 입력</h2>
+          <h2>입력값</h2>
 
           <div className="input-group">
-            <label htmlFor="principal">초기 투자금</label>
+            <label htmlFor="principal">
+              <DollarSign size={18} />
+              초기 투자금 (원)
+            </label>
             <input
               id="principal"
               type="number"
@@ -97,7 +100,9 @@ export default function CompoundInterestPage() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="rate">연 이율 (%)</label>
+            <label htmlFor="rate">
+              <Percent size={18} />연 수익률 (%)
+            </label>
             <input
               id="rate"
               type="number"
@@ -111,7 +116,10 @@ export default function CompoundInterestPage() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="years">투자 기간 (년)</label>
+            <label htmlFor="years">
+              <Calendar size={18} />
+              투자 기간 (년)
+            </label>
             <input
               id="years"
               type="number"
@@ -124,7 +132,9 @@ export default function CompoundInterestPage() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="monthly">월 적립금</label>
+            <label htmlFor="monthly">
+              <DollarSign size={18} />월 적립금 (원)
+            </label>
             <input
               id="monthly"
               type="number"
@@ -137,60 +147,58 @@ export default function CompoundInterestPage() {
           </div>
         </div>
 
-        <div className="result-section glass">
-          <h2>투자 결과</h2>
-
-          <div className="result-summary">
-            <div className="result-item">
-              <span className="label">최종 금액</span>
-              <span className="value primary">{formatCurrency(result.finalAmount)}</span>
-            </div>
-            <div className="result-item">
-              <span className="label">총 투자금</span>
-              <span className="value">{formatCurrency(result.totalInvested)}</span>
-            </div>
-            <div className="result-item">
-              <span className="label">총 수익</span>
-              <span className="value success">{formatCurrency(result.totalInterest)}</span>
-            </div>
-            <div className="result-item">
-              <span className="label">수익률</span>
-              <span className="value">
-                {result.totalInvested > 0
-                  ? ((result.totalInterest / result.totalInvested) * 100).toFixed(2)
-                  : 0}
-                %
-              </span>
-            </div>
-          </div>
-
-          {result.yearlyBreakdown.length > 0 && (
-            <div className="breakdown-section">
-              <h3>연도별 상세</h3>
-              <div className="table-container">
-                <table className="breakdown-table">
-                  <thead>
-                    <tr>
-                      <th scope="col">연도</th>
-                      <th scope="col">투자금액</th>
-                      <th scope="col">수익</th>
-                      <th scope="col">총 금액</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.yearlyBreakdown.map((year: YearlyBreakdown) => (
-                      <tr key={year.year}>
-                        <td>{year.year}년</td>
-                        <td>{formatCurrency(year.invested)}</td>
-                        <td className="success">{formatCurrency(year.interest)}</td>
-                        <td className="primary">{formatCurrency(year.amount)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+        <div className="result-section">
+          <>
+            <div className="result-summary glass">
+              <h2>계산 결과</h2>
+              <div className="result-cards">
+                <div className="result-card">
+                  <span className="result-label">최종 금액</span>
+                  <span className="result-value primary">{formatCurrency(result.finalAmount)}</span>
+                </div>
+                <div className="result-card">
+                  <span className="result-label">총 투자금</span>
+                  <span className="result-value">{formatCurrency(result.totalInvested)}</span>
+                </div>
+                <div className="result-card">
+                  <span className="result-label">총 수익</span>
+                  <span className="result-value success">
+                    {formatCurrency(result.totalInterest)}
+                  </span>
+                </div>
+                <div className="result-card">
+                  <span className="result-label">수익률</span>
+                  <span className="result-value">
+                    {result.totalInvested > 0
+                      ? ((result.totalInterest / result.totalInvested) * 100).toFixed(2)
+                      : '0.00'}
+                    %
+                  </span>
+                </div>
               </div>
             </div>
-          )}
+            {result.yearlyBreakdown.length > 0 && (
+              <div className="yearly-breakdown glass">
+                <h3>연도별 상세 내역</h3>
+                <div className="breakdown-table">
+                  <div className="table-header">
+                    <span>연차</span>
+                    <span>투자금액</span>
+                    <span>수익</span>
+                    <span>총 금액</span>
+                  </div>
+                  {result.yearlyBreakdown.map((year) => (
+                    <div key={year.year} className="table-row">
+                      <span>{year.year}년</span>
+                      <span>{formatCurrency(year.invested)}</span>
+                      <span className="success">{formatCurrency(year.interest)}</span>
+                      <span className="primary">{formatCurrency(year.amount)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         </div>
       </div>
     </div>

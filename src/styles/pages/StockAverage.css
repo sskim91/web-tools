@@ -5,7 +5,7 @@
 
 .calculator-container {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -268,7 +268,7 @@
   color: var(--primary);
 }
 
-@media (max-width: 968px) {
+@media (max-width: 768px) {
   .calculator-container {
     grid-template-columns: 1fr;
   }

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Header from '@/src/components/Layout/Header';
-import '@/src/styles/globals.css';
-import '@/src/styles/variables.css';
 import '@/src/styles/reset.css';
+import '@/src/styles/variables.css';
+import '@/src/styles/globals.css';
 import '@/src/styles/components/Layout.css';
 
 export const metadata: Metadata = {

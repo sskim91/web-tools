@@ -3,33 +3,11 @@
   margin: 0 auto;
 }
 
-.page-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  animation: fadeIn 0.6s ease;
-}
-
-.page-header h1 {
-  font-size: 2.5rem;
-  margin: 1rem 0 0.5rem;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.page-header p {
-  color: var(--text-secondary);
-  font-size: 1.125rem;
-}
-
-.page-icon {
-  color: var(--primary);
-}
+/* Page header styles moved to globals.css */
 
 .calculator-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
   animation: fadeIn 0.8s ease 0.2s both;
 }
@@ -165,7 +143,7 @@
   font-weight: 600;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 768px) {
   .calculator-container {
     grid-template-columns: 1fr;
   }
